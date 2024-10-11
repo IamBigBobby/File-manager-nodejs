@@ -1,7 +1,10 @@
 import os from 'os';
 import readline from 'readline';
+import { listDirectoryContents } from "./utils/showDirList.js";
 
-const userName = process.argv.find(arg => arg.startsWith('--username='))?.split('=')[1];
+const userName = process.argv
+  .find((arg) => arg.startsWith('--username='))
+  ?.split('=')[1];
 
 if (!userName) {
   console.error('Username is required');
@@ -20,7 +23,7 @@ printCurrentDirectory();
 
 const readLine = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 readLine.on('line', (input) => {
@@ -28,6 +31,8 @@ readLine.on('line', (input) => {
 
   if (command === '.exit') {
     readLine.close();
+  } else if (command === 'ls'){
+    listDirectoryContents(currentDir);
   } else {
     console.log('Invalid input');
   }
