@@ -21,4 +21,3 @@ export function listDirectoryContents(directory) {
     console.table(sortedContents);
   });
 }
-

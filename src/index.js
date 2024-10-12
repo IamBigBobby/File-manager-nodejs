@@ -43,7 +43,7 @@ readLine.on('line', (input) => {
       const targetDir = args.join(' ');
       currentDir = changeDir(currentDir, targetDir);
     } else {
-      console.log("Operation failed: No directory provided");
+      console.log('Operation failed: No directory provided');
     }
   } else if (command === 'cat') {
     if (args.length > 0) {
@@ -55,7 +55,7 @@ readLine.on('line', (input) => {
   } else {
     console.log('Invalid input');
   }
-  
+
   printCurrentDirectory();
 });
 
