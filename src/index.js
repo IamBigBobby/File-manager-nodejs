@@ -3,6 +3,7 @@ import readline from 'readline';
 import { listDirectoryContents } from './utils/showDirList.js';
 import { upDir } from './utils/upDir.js';
 import { changeDir } from './utils/changeDir.js';
+import { catFile } from './utils/catFile.js';
 
 const userName = process.argv
   .find((arg) => arg.startsWith('--username='))
@@ -37,17 +38,24 @@ readLine.on('line', (input) => {
     listDirectoryContents(currentDir);
   } else if (command === 'up') {
     currentDir = upDir(currentDir);
-  } else if (command === 'cd'){
+  } else if (command === 'cd') {
     if (args.length > 0) {
       const targetDir = args.join(' ');
       currentDir = changeDir(currentDir, targetDir);
     } else {
-      console.log("Operation failed");
+      console.log("Operation failed: No directory provided");
     }
-  }
-   else {
+  } else if (command === 'cat') {
+    if (args.length > 0) {
+      const filePath = args.join(' ');
+      catFile(currentDir, filePath);
+    } else {
+      console.log('Operation failed: No file path provided');
+    }
+  } else {
     console.log('Invalid input');
   }
+  
   printCurrentDirectory();
 });
 
