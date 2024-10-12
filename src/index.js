@@ -6,6 +6,7 @@ import { changeDir } from './utils/changeDir.js';
 import { catFile } from './utils/catFile.js';
 import { addFile } from './utils/createEmptyFile.js';
 import { renameFile } from './utils/renameFile.js';
+import { copyFile } from './utils/copyFiles.js';
 
 const userName = process.argv
   .find((arg) => arg.startsWith('--username='))
@@ -64,6 +65,13 @@ readLine.on('line', (input) => {
       const oldFileName = args[0];
       const newFileName = args.slice(1).join(' ');
       renameFile(currentDir, oldFileName, newFileName);
+    }
+  } else if (command === 'cp') {
+    if (args.length >= 2) {
+      const [sourceFilePath, ...targetDirectory] = args;
+      copyFile(currentDir, sourceFilePath, targetDirectory.join(' '));
+    } else {
+      console.log('Operation failed: Insufficient arguments provided');
     }
   } else {
     console.log('Invalid input');
