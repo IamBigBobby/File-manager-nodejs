@@ -7,6 +7,7 @@ import { catFile } from './utils/catFile.js';
 import { addFile } from './utils/createEmptyFile.js';
 import { renameFile } from './utils/renameFile.js';
 import { copyFile } from './utils/copyFiles.js';
+import { removeFile } from './utils/deleteFile.js';
 
 const userName = process.argv
   .find((arg) => arg.startsWith('--username='))
@@ -72,6 +73,13 @@ readLine.on('line', (input) => {
       copyFile(currentDir, sourceFilePath, targetDirectory.join(' '));
     } else {
       console.log('Operation failed: Insufficient arguments provided');
+    }
+  } else if (command === 'rm') {
+    if (args.length > 0) {
+      const filePath = args.join(' ');
+      removeFile(currentDir, filePath);
+    } else {
+      console.log('Operation failed: No file specified.');
     }
   } else {
     console.log('Invalid input');
