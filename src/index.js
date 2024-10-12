@@ -1,6 +1,7 @@
 import os from 'os';
 import readline from 'readline';
 import { listDirectoryContents } from "./utils/showDirList.js";
+import { upDir } from './utils/upDir.js';
 
 const userName = process.argv
   .find((arg) => arg.startsWith('--username='))
@@ -33,6 +34,8 @@ readLine.on('line', (input) => {
     readLine.close();
   } else if (command === 'ls'){
     listDirectoryContents(currentDir);
+  } else if( command === 'up'){
+    currentDir = upDir(currentDir);
   } else {
     console.log('Invalid input');
   }
