@@ -7,33 +7,18 @@ export function listDirectoryContents(directory) {
       return;
     }
 
-    const contents = files.map((file) => {
-      return {
-        name: file.name,
-        type: file.isDirectory() ? 'Directory' : 'File',
-      };
-    });
+    const sortedContents = files
+      .map((file) => ({
+        Name: file.name,
+        Type: file.isDirectory() ? 'Directory' : 'File',
+      }))
+      .sort((a, b) => {
+        if (a.Type === 'Directory' && b.Type === 'File') return -1;
+        if (a.Type === 'File' && b.Type === 'Directory') return 1;
+        return a.Name.localeCompare(b.Name);
+      });
 
-    contents.sort((a, b) => {
-      if (a.type === 'Directory' && b.type === 'File') return -1;
-      if (a.type === 'File' && b.type === 'Directory') return 1;
-      return a.name.localeCompare(b.name);
-    });
-
-    const maxNameLength = Math.max(
-      ...contents.map((item) => item.name.length),
-      'Name'.length,
-    );
-
-    console.log(
-      'Index | Name' + ' '.repeat(maxNameLength - 'Name'.length) + ' | Type',
-    );
-    console.log('-'.repeat(7 + maxNameLength + 14));
-
-    contents.forEach((item, index) => {
-      console.log(
-        `${index.toString().padEnd(5)} | ${item.name.padEnd(maxNameLength)} | ${item.type}`,
-      );
-    });
+    console.table(sortedContents);
   });
 }
+
