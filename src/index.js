@@ -2,6 +2,7 @@ import os from 'os';
 import readline from 'readline';
 import { listDirectoryContents } from './utils/showDirList.js';
 import { upDir } from './utils/upDir.js';
+import { changeDir } from './utils/changeDir.js';
 
 const userName = process.argv
   .find((arg) => arg.startsWith('--username='))
@@ -28,7 +29,7 @@ const readLine = readline.createInterface({
 });
 
 readLine.on('line', (input) => {
-  const command = input.trim();
+  const [command, ...args] = input.trim().split(' ');
 
   if (command === '.exit') {
     readLine.close();
@@ -36,7 +37,15 @@ readLine.on('line', (input) => {
     listDirectoryContents(currentDir);
   } else if (command === 'up') {
     currentDir = upDir(currentDir);
-  } else {
+  } else if (command === 'cd'){
+    if (args.length > 0) {
+      const targetDir = args.join(' ');
+      currentDir = changeDir(currentDir, targetDir);
+    } else {
+      console.log("Operation failed");
+    }
+  }
+   else {
     console.log('Invalid input');
   }
   printCurrentDirectory();
