@@ -5,6 +5,7 @@ import { upDir } from './utils/upDir.js';
 import { changeDir } from './utils/changeDir.js';
 import { catFile } from './utils/catFile.js';
 import { addFile } from './utils/createEmptyFile.js';
+import { renameFile } from './utils/renameFile.js';
 
 const userName = process.argv
   .find((arg) => arg.startsWith('--username='))
@@ -57,6 +58,12 @@ readLine.on('line', (input) => {
     if (args.length > 0) {
       const fileName = args.join(' ');
       addFile(currentDir, fileName);
+    }
+  } else if (command === 'rn') {
+    if (args.length >= 2) {
+      const oldFileName = args[0];
+      const newFileName = args.slice(1).join(' ');
+      renameFile(currentDir, oldFileName, newFileName);
     }
   } else {
     console.log('Invalid input');
