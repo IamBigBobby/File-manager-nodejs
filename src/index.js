@@ -4,6 +4,7 @@ import { listDirectoryContents } from './utils/showDirList.js';
 import { upDir } from './utils/upDir.js';
 import { changeDir } from './utils/changeDir.js';
 import { catFile } from './utils/catFile.js';
+import { addFile } from './utils/createEmptyFile.js';
 
 const userName = process.argv
   .find((arg) => arg.startsWith('--username='))
@@ -51,6 +52,11 @@ readLine.on('line', (input) => {
       catFile(currentDir, filePath);
     } else {
       console.log('Operation failed: No file path provided');
+    }
+  } else if (command === 'add') {
+    if (args.length > 0) {
+      const fileName = args.join(' ');
+      addFile(currentDir, fileName);
     }
   } else {
     console.log('Invalid input');
