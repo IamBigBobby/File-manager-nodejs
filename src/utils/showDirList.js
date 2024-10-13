@@ -8,10 +8,12 @@ export function listDirectoryContents(directory) {
     }
 
     const sortedContents = files
-      .map((file) => ({
-        Name: file.name,
-        Type: file.isDirectory() ? 'Directory' : 'File',
-      }))
+      .map((file) => {
+        return {
+          Name: file.name,
+          Type: file.isDirectory() ? 'Directory' : 'File',
+        };
+      })
       .sort((a, b) => {
         if (a.Type === 'Directory' && b.Type === 'File') return -1;
         if (a.Type === 'File' && b.Type === 'Directory') return 1;
