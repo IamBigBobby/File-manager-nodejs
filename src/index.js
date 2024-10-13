@@ -13,6 +13,7 @@ import { getCpuInfo } from './utils/getCpuInfo.js';
 import { getHomeDir } from './utils/getHomeDir.js';
 import { getSystemUserName } from './utils/getName.js';
 import { getCpuArchitecture } from './utils/getCpuArch.js';
+import { calculateHash } from './utils/calculateHash.js';
 
 const userName = process.argv
   .find((arg) => arg.startsWith('--username='))
@@ -52,14 +53,14 @@ readLine.on('line', (input) => {
       const targetDir = args.join(' ');
       currentDir = changeDir(currentDir, targetDir);
     } else {
-      console.log('Operation failed: No directory provided');
+      console.log('Operation failed');
     }
   } else if (command === 'cat') {
     if (args.length > 0) {
       const filePath = args.join(' ');
       catFile(currentDir, filePath);
     } else {
-      console.log('Operation failed: No file path provided');
+      console.log('Operation failed');
     }
   } else if (command === 'add') {
     if (args.length > 0) {
@@ -77,14 +78,14 @@ readLine.on('line', (input) => {
       const [sourceFilePath, ...targetDirectory] = args;
       copyFile(currentDir, sourceFilePath, targetDirectory.join(' '));
     } else {
-      console.log('Operation failed: Insufficient arguments provided');
+      console.log('Operation failed');
     }
   } else if (command === 'rm') {
     if (args.length > 0) {
       const filePath = args.join(' ');
       removeFile(currentDir, filePath);
     } else {
-      console.log('Operation failed: No file specified.');
+      console.log('Operation failed');
     }
   } else if (command === 'os') {
     if (args[0] === '--EOL') {
@@ -98,7 +99,14 @@ readLine.on('line', (input) => {
     } else if (args[0] === '--architecture') {
       getCpuArchitecture();
     }
-  } else {
+  } else if (command === 'hash') {
+    if (args.length > 0) {
+      calculateHash(currentDir, args[0]);
+    } else {
+      console.log()
+    }
+  }
+   else {
     console.log('Invalid input');
   }
 
