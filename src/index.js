@@ -10,6 +10,7 @@ import { copyFile } from './utils/copyFiles.js';
 import { removeFile } from './utils/deleteFile.js';
 import { getEOL } from './utils/getEOl.js';
 import { getCpuInfo } from './utils/getCpuInfo.js';
+import { getHomeDir } from './utils/getHomeDir.js';
 
 const userName = process.argv
   .find((arg) => arg.startsWith('--username='))
@@ -88,6 +89,8 @@ readLine.on('line', (input) => {
       console.log(getEOL());
     } else if (args[0] === '--cpus') {
       getCpuInfo();
+    } else if (args[0] === '--homedir') {
+      getHomeDir();
     }
   } else {
     console.log('Invalid input');
