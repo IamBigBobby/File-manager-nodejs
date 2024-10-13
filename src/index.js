@@ -12,6 +12,7 @@ import { getEOL } from './utils/getEOl.js';
 import { getCpuInfo } from './utils/getCpuInfo.js';
 import { getHomeDir } from './utils/getHomeDir.js';
 import { getSystemUserName } from './utils/getName.js';
+import { getCpuArchitecture } from './utils/getCpuArch.js';
 
 const userName = process.argv
   .find((arg) => arg.startsWith('--username='))
@@ -87,13 +88,15 @@ readLine.on('line', (input) => {
     }
   } else if (command === 'os') {
     if (args[0] === '--EOL') {
-      console.log(getEOL());
+      getEOL();
     } else if (args[0] === '--cpus') {
       getCpuInfo();
     } else if (args[0] === '--homedir') {
       getHomeDir();
     } else if (args[0] === '--username') {
       getSystemUserName();
+    } else if (args[0] === '--architecture') {
+      getCpuArchitecture();
     }
   } else {
     console.log('Invalid input');
