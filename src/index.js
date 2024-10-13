@@ -11,6 +11,7 @@ import { removeFile } from './utils/deleteFile.js';
 import { getEOL } from './utils/getEOl.js';
 import { getCpuInfo } from './utils/getCpuInfo.js';
 import { getHomeDir } from './utils/getHomeDir.js';
+import { getSystemUserName } from './utils/getName.js';
 
 const userName = process.argv
   .find((arg) => arg.startsWith('--username='))
@@ -91,6 +92,8 @@ readLine.on('line', (input) => {
       getCpuInfo();
     } else if (args[0] === '--homedir') {
       getHomeDir();
+    } else if (args[0] === '--username') {
+      getSystemUserName();
     }
   } else {
     console.log('Invalid input');
