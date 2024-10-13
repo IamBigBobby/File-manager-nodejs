@@ -103,10 +103,9 @@ readLine.on('line', (input) => {
     if (args.length > 0) {
       calculateHash(currentDir, args[0]);
     } else {
-      console.log()
+      console.log();
     }
-  }
-   else {
+  } else {
     console.log('Invalid input');
   }
 
