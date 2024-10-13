@@ -8,6 +8,7 @@ import { addFile } from './utils/createEmptyFile.js';
 import { renameFile } from './utils/renameFile.js';
 import { copyFile } from './utils/copyFiles.js';
 import { removeFile } from './utils/deleteFile.js';
+import { getEOL } from './utils/getEOl.js';
 
 const userName = process.argv
   .find((arg) => arg.startsWith('--username='))
@@ -81,7 +82,10 @@ readLine.on('line', (input) => {
     } else {
       console.log('Operation failed: No file specified.');
     }
-  } else {
+  } else if (command === 'os' && args[0] === '--EOL') {
+    console.log(getEOL());
+  }
+   else {
     console.log('Invalid input');
   }
 
